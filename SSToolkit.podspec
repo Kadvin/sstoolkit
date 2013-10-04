@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 
   s.post_install do |pod|
     puts "\nGenerating SSToolkit resources bundle\n".yellow #if pod.target.verbose?
-    Dir.chdir File.join(pod.sandboxdir, 'SSToolkit') do
+    Dir.chdir File.join(pod.sandbox_dir, 'SSToolkit') do
       command = "xcodebuild -project SSToolkit.xcodeproj -target SSToolkitResources CONFIGURATION_BUILD_DIR=./"
       command << " 2>&1 > /dev/null" #unless pod.target.verbose?
       unless system(command)
@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
     if Version.new(Pod::VERSION) >= Version.new('0.16.999')
       script_path = pod.copy_resources_script_path
     else
-      script_path = File.join(pod.sandboxdir, pod.copy_resources_script_name)
+      script_path = File.join(pod.sandbox_dir, pod.copy_resources_script_name)
     end
     File.open(script_path, 'a') do |file|
       file.puts "install_resource 'SSToolkit/SSToolkitResources.bundle'"
