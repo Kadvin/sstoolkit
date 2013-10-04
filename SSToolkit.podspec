@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.preserve_paths = 'SSToolkit.xcodeproj', 'Resources'
   s.prefix_header_contents = '#ifdef __OBJC__', '#import "SSToolkitDefines.h"', '#endif'
 
-  post_install do |target_installer|
+  s.post_install do |target_installer|
     puts "\nGenerating SSToolkit resources bundle\n".yellow if target_installer.verbose?
     Dir.chdir File.join(target_installer.project_pods_root, 'SSToolkit') do
       command = "xcodebuild -project SSToolkit.xcodeproj -target SSToolkitResources CONFIGURATION_BUILD_DIR=./"
