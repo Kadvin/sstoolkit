@@ -16,11 +16,11 @@ Pod::Spec.new do |s|
   s.preserve_paths = 'SSToolkit.xcodeproj', 'Resources'
   s.prefix_header_contents = '#ifdef __OBJC__', '#import "SSToolkitDefines.h"', '#endif'
 
-  s.post_install do |pod, target|
-    puts "\nGenerating SSToolkit resources bundle\n".yellow if target.verbose?
-    Dir.chdir File.join(target.project_pods_root, 'SSToolkit') do
+  s.post_install do |pod|
+    puts "\nGenerating SSToolkit resources bundle\n".yellow 
+    Dir.chdir File.join(pod.project_pods_root, 'SSToolkit') do
       command = "xcodebuild -project SSToolkit.xcodeproj -target SSToolkitResources CONFIGURATION_BUILD_DIR=./"
-      command << " 2>&1 > /dev/null" unless target.verbose?
+      command << " 2>&1 > /dev/null" #unless target.verbose?
       unless system(command)
         raise ::Pod::Informative, "Failed to generate SSToolkit resources bundle"
       end
@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
     if Version.new(Pod::VERSION) >= Version.new('0.16.999')
       script_path = pod.copy_resources_script_path
     else
-      script_path = File.join(target.project_pods_root, pod.copy_resources_script_name)
+      script_path = File.join(pod.project_pods_root, pod.copy_resources_script_name)
     end
     File.open(script_path, 'a') do |file|
       file.puts "install_resource 'SSToolkit/SSToolkitResources.bundle'"
