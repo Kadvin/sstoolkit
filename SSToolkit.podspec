@@ -17,10 +17,10 @@ Pod::Spec.new do |s|
   s.prefix_header_contents = '#ifdef __OBJC__', '#import "SSToolkitDefines.h"', '#endif'
 
   s.post_install do |pod|
-    puts "\nGenerating SSToolkit resources bundle\n".yellow if pod.target.verbose?
+    puts "\nGenerating SSToolkit resources bundle\n".yellow #if pod.target.verbose?
     Dir.chdir File.join(pod.sandboxdir, 'SSToolkit') do
       command = "xcodebuild -project SSToolkit.xcodeproj -target SSToolkitResources CONFIGURATION_BUILD_DIR=./"
-      command << " 2>&1 > /dev/null" unless pod.target.verbose?
+      command << " 2>&1 > /dev/null" #unless pod.target.verbose?
       unless system(command)
         raise ::Pod::Informative, "Failed to generate SSToolkit resources bundle"
       end
