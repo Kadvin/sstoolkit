@@ -125,7 +125,12 @@ static NSString *kSSCollectionViewSectionItemSizeKey = @"SSCollectionViewSection
 
 - (void)setBackgroundColor:(UIColor *)color {
 	[super setBackgroundColor:color];
-	_tableView.backgroundColor = color;
+	//_tableView.backgroundColor = color;
+}
+- (void)setAlpha:(CGFloat) alpha{
+  if(alpha < 1)
+    [super setAlpha: alpha];
+  //_tableView.alpha = alpha;
 }
 
 
