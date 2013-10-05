@@ -94,4 +94,9 @@
 	return self;
 }
 
+- (void)setBackgroundColor:(UIColor *)backgroundColor {
+    //[super setBackgroundColor:backgroundColor];
+    //use the clear color always
+}
+
 @end
